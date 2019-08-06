@@ -1,1 +1,1 @@
-export const ENDPOINT = "/api/questions";
+export const ENDPOINT = '/api/questions';

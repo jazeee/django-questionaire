@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { fetchJson } from "./fetch";
+import { useEffect } from 'react';
+import { fetchJson } from './fetch';
 
 export function useFetchEffect(url, options) {
   const {
@@ -13,17 +13,25 @@ export function useFetchEffect(url, options) {
     let isCurrentRequest = true;
 
     setIsLoading(true);
-    setMessage("");
+    setMessage('');
     fetchJson(url, fetchOptions)
-      .then(result => {
-        isCurrentRequest && setResult(result);
-      }).catch(error => {
+      .then((result) => {
+        if (isCurrentRequest) {
+          setResult(result);
+        }
+      }).catch((error) => {
         console.error(error);
-        isCurrentRequest && setMessage(error.toString());
+        if (isCurrentRequest) {
+          setMessage(error.toString());
+        }
       }).then(() => {
-        isCurrentRequest && setIsLoading(false);
+        if (isCurrentRequest) {
+          setIsLoading(false);
+        }
       });
-    return () => isCurrentRequest = false;
+    return () => {
+      isCurrentRequest = false;
+    };
   }, [
     setResult,
     setIsLoading,
